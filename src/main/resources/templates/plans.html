@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Available Membership Plans</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            background: linear-gradient(to right, #d4fc79, #96e6a1);
+            color: #222;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            color: #1f4037;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .plan-card {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 30px 25px;
+            width: 220px;
+            text-align: center;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .plan-card h3 {
+            font-size: 22px;
+            color: #218838;
+            margin-bottom: 10px;
+        }
+
+        .plan-card p {
+            font-size: 16px;
+            margin: 8px 0;
+            color: #333;
+        }
+
+        .action-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .select-btn {
+            padding: 14px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            background: linear-gradient(to right, #28a745, #218838);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .select-btn:hover {
+            background: linear-gradient(to right, #218838, #1e7e34);
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>Available Membership Plans</h2>
+
+    <div class="container">
+        <div class="plan-card">
+            <h3>Monthly</h3>
+            <p>₹1,000</p>
+            <p>1 Month</p>
+        </div>
+
+        <div class="plan-card">
+            <h3>Quarterly</h3>
+            <p>₹2,800</p>
+            <p>3 Months</p>
+        </div>
+
+        <div class="plan-card">
+            <h3>6 Months</h3>
+            <p>₹5,000</p>
+            <p>6 Months</p>
+        </div>
+
+        <div class="plan-card">
+            <h3>Yearly</h3>
+            <p>₹10,000</p>
+            <p>12 Months</p>
+        </div>
+    </div>
+
+    <div class="action-container">
+        <button class="select-btn" onclick="window.location.href='/addPlan'">Select Plan</button>
+    </div>
+
+</body>
+</html>

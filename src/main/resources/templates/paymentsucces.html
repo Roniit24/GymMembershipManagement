@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Success - BodyTuning Gym</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f4;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .success-container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #28a745;
+            margin-bottom: 25px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #1e7e34;
+        }
+
+        .footer {
+            margin-top: 50px;
+            font-size: 14px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="success-container">
+        <h2>🎉 Payment Successful! 🎉</h2>
+        <p>Thank you for your payment. Your transaction has been successfully processed.</p>
+        <p>We appreciate you choosing BodyTuning Gym to meet your fitness goals!</p>
+
+        <p>If you have any questions or issues, feel free to reach out to our support team.</p>
+
+        <a href="/dashboard" class="btn">Go to Dashboard</a>
+    </div>
+
+    <div class="footer">
+        &copy; 2025 BodyTuning Gym. Stay fit, stay healthy! 💪
+    </div>
+
+</body>
+</html>

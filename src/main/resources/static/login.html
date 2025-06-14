@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - BodyTuning Gym</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #d4fc79, #96e6a1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: #222;
+    }
+
+    .login-container {
+      background: #ffffff;
+      padding: 35px 35px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      width: 360px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #1f4037;
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #444;
+      font-size: 16px;
+      margin-bottom: 25px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 14px;
+      margin: 10px 0 18px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      background: linear-gradient(to right, #28a745, #218838);
+      color: white;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #218838, #1e7e34);
+      transform: scale(1.03);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    }
+
+    .message {
+      margin-top: 15px;
+      font-weight: 600;
+    }
+
+    .error { color: #d9534f; }
+    .success { color: #28a745; }
+    .loading { color: #6c757d; }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 13px;
+      color: #555;
+      opacity: 0.9;
+    }
+
+    .back-home {
+      display: inline-block;
+      margin-top: 15px;
+      color: #218838;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .back-home:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h2>Login to FitZone</h2>
+    <p>Access your dashboard, manage memberships & more</p>
+
+    <input type="email" id="email" placeholder="Enter your Email" required />
+    <input type="password" id="password" placeholder="Enter your Password" required />
+    
+    <button onclick="login()">Login</button>
+    
+    <div class="message" id="message"></div>
+
+    <a class="back-home" href="register.html">← Register if new</a>
+
+    <div class="footer">&copy; 2025 BodyTuning Gym. All rights reserved.</div>
+  </div>
+  <script>
+    function setMessage(msg, className = '') {
+      const messageEl = document.getElementById('message');
+      messageEl.textContent = msg;
+      messageEl.className = 'message ' + className;
+    }
+
+    function login() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (!email || !password) {
+        setMessage("Email and Password are required.", 'error');
+        return;
+      }
+
+      setMessage("Logging in... Please wait.", 'loading');
+
+	  fetch('/auth/login', {
+	    method: 'POST',
+	    headers: { 'Content-Type': 'application/json' },
+	    credentials: 'include',
+	    body: JSON.stringify({ email, password })
+	  })
+	  .then(response => response.text())
+	  .then(msg => {
+	    if (msg.toLowerCase().includes("login successful")) {
+	      setMessage(msg, 'success');
+	      window.location.href = "/dashboard";
+	    } else {
+	      setMessage(msg, 'error');
+	    }
+	  })
+	  .catch(() => {
+	    setMessage("Login failed. Try again.", 'error');
+	  });
+
+    }
+  </script>
+
+</body>
+</html>

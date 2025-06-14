@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - BodyTuning Gym</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, rgba(212, 252, 121, 0.8), rgba(150, 230, 161, 0.8)),
+                        url('/src/main/resources/static/images/img.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333;
+        }
+
+        header {
+            background-color: rgba(40, 167, 69, 0.95);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .dashboard-container {
+            max-width: 950px;
+            margin: 60px auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 36px;
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-size: 18px;
+            color: #444;
+            margin-bottom: 30px;
+        }
+
+        .greeting-box {
+            background-color: #e8fce9;
+            border-left: 6px solid #28a745;
+            padding: 20px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-bottom: 30px;
+            color: #155724;
+        }
+
+        .greeting-box span {
+            font-weight: bold;
+        }
+
+        .about-gym {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .button-group a {
+            background: linear-gradient(to right, #28a745, #218838);
+            color: white;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .button-group a:hover {
+            background: linear-gradient(to right, #218838, #1e7e34);
+            transform: scale(1.05);
+        }
+
+		footer {
+		    text-align: center;
+		    padding: 20px;
+		    margin-top: 60px;
+		    background: transparent; /* NO white strip */
+		    font-size: 14px;
+		    color: rgb(0, 0, 0); /* White text to show on dark/greenish background */
+		}
+
+        @media screen and (max-width: 768px) {
+            .dashboard-container {
+                padding: 30px 20px;
+            }
+
+            .button-group a {
+                width: 100%;
+                text-align: center;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>BodyTuning Gym</h1>
+    <nav>
+        <a th:href="@{/dashboard}">Dashboard</a>
+        <a th:href="@{/index}">Logout</a>
+    </nav>
+</header>
+
+<main>
+    <div class="dashboard-container">
+        <div class="greeting-box">
+            👋 Welcome back, <span th:text="${name}">User</span>! <br>
+            Let’s take one step closer to your fitness goals today.
+        </div>
+
+        <h2>BodyTuning Dashboard</h2>
+        <div class="tagline">Your fitness journey starts here. 💪</div>
+
+        <div class="about-gym">
+            At <strong>BodyTuning Gym</strong>, we are committed to helping you become the best version of yourself.
+            Our facilities, expert trainers, and personalized plans ensure you stay consistent, motivated, and empowered.
+        </div>
+
+        <div class="button-group">
+            <a th:href="@{/plans}">📋 View Membership Plans</a>
+            <a th:href="@{/my-plan}">📄 Your Current Plan</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    &copy; 2025 <strong>BodyTuning Gym</strong>. All rights reserved. Stay fit, stay healthy! 💚
+</footer>
+
+</body>
+</html>

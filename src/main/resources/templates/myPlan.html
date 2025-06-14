@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Current Plan - BodyTuning Gym</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(120deg, #f0fff4, #ffffff);
+            margin: 0;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: #ffffff;
+            padding: 50px 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            font-size: 32px;
+            color: #28a745;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .plan-card {
+            background-color: #f9fdf9;
+            padding: 25px 30px;
+            border-left: 6px solid #28a745;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .detail {
+            margin: 15px 0;
+            font-size: 17px;
+            display: flex;
+            align-items: center;
+        }
+
+        .detail strong {
+            width: 180px;
+            color: #222;
+        }
+
+        .detail span {
+            color: #555;
+        }
+
+        .no-plan {
+            font-size: 18px;
+            color: #999;
+            text-align: center;
+            font-style: italic;
+            padding: 40px 10px;
+            background: #fdfdfd;
+            border-radius: 12px;
+            border: 1px dashed #ccc;
+        }
+
+        a.back-btn {
+            display: block;
+            width: fit-content;
+            margin: 30px auto 0;
+            padding: 12px 30px;
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        a.back-btn:hover {
+            background-color: #1e7e34;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>🏋️ Your Current Membership Plan</h2>
+
+    <div th:if="${noPlan}" class="no-plan">
+        You haven't subscribed to any membership plan yet.
+    </div>
+
+    <div th:unless="${noPlan}" class="plan-card">
+        <div class="detail">
+            <strong>📋 Plan Name:</strong>
+            <span th:text="${planName}">Plan Name</span>
+        </div>
+        <div class="detail">
+            <strong>💰 Amount Paid:</strong>
+            ₹<span th:text="${amount}">0.0</span>
+        </div>
+        <div class="detail">
+            <strong>⏳ Duration:</strong>
+            <span th:text="${duration}">1</span> Month(s)
+        </div>
+        <div class="detail">
+            <strong>💳 Payment Mode:</strong>
+            <span th:text="${paymentMode}">Mode</span>
+        </div>
+        <div class="detail">
+            <strong>📅 Activation Date:</strong>
+            <span th:text="${activationDate}">Date</span>
+        </div>
+    </div>
+
+    <a class="back-btn" th:href="@{/dashboard}">⬅ Back to Dashboard</a>
+</div>
+</body>
+</html>

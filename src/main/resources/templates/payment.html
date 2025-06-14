@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Page - BodyTuning Gym</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #d4fc79, #96e6a1);
+            padding: 60px 20px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #222;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px 50px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 32px;
+            color: #1f4037;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        p {
+            margin: 12px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-top: 20px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        select, input[type="date"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        button {
+            margin-top: 30px;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(to right, #28a745, #218838);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #218838, #1e7e34);
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 13px;
+            color: #555;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Proceed to Payment</h2>
+
+    <p><strong>Plan Name:</strong> <span th:text="${planName}"></span></p>
+    <p><strong>Price:</strong> ₹<span th:text="${price}"></span></p>
+    <p><strong>Duration:</strong> <span th:text="${duration}"></span> Month(s)</p>
+
+    <form action="/submit-payment" method="POST">
+        <input type="hidden" name="planName" th:value="${planName}" />
+        <input type="hidden" name="amountPaid" th:value="${price}" />
+        <input type="hidden" name="duration" th:value="${duration}" />
+
+        <label for="paymentMode">Select Payment Mode:</label>
+        <select name="paymentMode" required>
+            <option value="UPI">UPI</option>
+            <option value="Card">Card</option>
+            <option value="Net Banking">Net Banking</option>
+        </select>
+
+        <label for="activationDate">Activation Date:</label>
+        <input type="date" name="activationDate" required />
+		
+
+        <button type="submit">Make Payment</button>
+    </form>
+
+    <div class="footer">
+        &copy; 2025 <strong>BodyTuning Gym</strong>. All rights reserved.
+    </div>
+</div>
+
+</body>
+</html>
