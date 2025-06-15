@@ -147,23 +147,49 @@
       .catch(error => setMessage("Error sending OTP.", 'red'));
     }
 
-    function register() {
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      const otp = document.getElementById('otp').value;
+	function register() {
+	    const name = document.getElementById("name").value.trim();
+	    const email = document.getElementById("email").value.trim();
+	    const password = document.getElementById("password").value.trim();
+	    const otp = document.getElementById("otp").value.trim();
 
-      fetch('/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password, otp })
-      })
-      .then(response => response.text())
-      .then(msg => {
-        setMessage(msg, msg.includes("success") ? 'green' : 'red');
-      })
-      .catch(error => setMessage("Error registering user.", 'red'));
-    }
+	    if (!name || !email || !password || !otp) {
+	        setMessage("All fields including OTP are required.", 'error');
+	        return;
+	    }
+
+	    setMessage("Registering... Please wait.", 'loading');
+
+	    fetch('/auth/register', {
+	        method: 'POST',
+	        headers: { 'Content-Type': 'application/json' },
+	        credentials: 'include',
+	        body: JSON.stringify({ name, email, password, otp })
+	    })
+	    .then(response => response.text())
+	    .then(msg => {
+	        if (msg.toLowerCase().includes("success")) {
+	            setMessage(msg, 'success');
+	            
+	            // Clear form fields
+	            document.getElementById("name").value = "";
+	            document.getElementById("email").value = "";
+	            document.getElementById("password").value = "";
+	            document.getElementById("otp").value = "";
+
+	            // Redirect after delay
+	            setTimeout(() => {
+	                window.location.href = "login.html";
+	            }, 2000);
+	        } else {
+	            setMessage(msg, 'error');
+	        }
+	    })
+	    .catch(() => {
+	        setMessage("Registration failed. Try again.", 'error');
+	    });
+	}
+
 
     function redirectToLogin() {
       window.location.href = "login.html";
