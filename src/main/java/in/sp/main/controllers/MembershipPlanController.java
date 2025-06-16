@@ -2,6 +2,7 @@ package in.sp.main.controllers;
 
 import java.util.List;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,35 +17,48 @@ public class MembershipPlanController {
     @Autowired
     private MembershipPlanService service;
 
-    // Show all plans (overview page)
+    // ✅ Show all plans (secured)
     @GetMapping("/plans")
-    public String listPlans(Model model) {
+    public String listPlans(Model model, HttpSession session) {
+        if (session.getAttribute("email") == null) {
+            return "redirect:/"; // redirect if not logged in
+        }
+
         List<MembershipPlan> plans = service.getAllPlans();
         model.addAttribute("plans", plans);
-        return "plans"; // This is the overview page
+        return "plans";
     }
 
-    // Show plan selection form (dropdown page)
+    // ✅ Show plan selection form (secured)
     @GetMapping("/addPlan")
-    public String showAddForm(Model model) {
+    public String showAddForm(Model model, HttpSession session) {
+        if (session.getAttribute("email") == null) {
+            return "redirect:/";
+        }
+
         model.addAttribute("plans", service.getAllPlans());
-        return "addPlan"; // This is the plan selection form
+        return "addPlan";
     }
 
-
-    // Process selected plan, fetch price & duration, and go to payment
+    // ✅ Process selected plan, fetch price & duration, and go to payment (secured)
     @PostMapping("/addPlan")
-    public String addPlan(@RequestParam String planName, @RequestParam Double price, @RequestParam String duration, Model model) {
-        System.out.println("Adding new plan: " + planName); // Debugging
+    public String addPlan(@RequestParam String planName,
+                          @RequestParam Double price,
+                          @RequestParam String duration,
+                          Model model,
+                          HttpSession session) {
+        if (session.getAttribute("email") == null) {
+            return "redirect:/";
+        }
 
-        // Create a new MembershipPlan instance
+        System.out.println("Adding new plan: " + planName);
+
         MembershipPlan newPlan = new MembershipPlan();
         newPlan.setPlanName(planName);
         newPlan.setPrice(price);
         newPlan.setDuration(duration);
 
-        // Save the new plan to the database
-        MembershipPlan savedPlan = service.savePlan(newPlan);  // Ensure the save method is working
+        MembershipPlan savedPlan = service.savePlan(newPlan);
 
         if (savedPlan != null) {
             model.addAttribute("planName", savedPlan.getPlanName());
@@ -54,10 +68,6 @@ public class MembershipPlanController {
             model.addAttribute("error", "Error saving plan.");
         }
 
-        return "payment"; // Redirect to the payment page
+        return "payment";
     }
-
-
-
-
 }

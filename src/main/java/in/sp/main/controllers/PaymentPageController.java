@@ -26,13 +26,14 @@ public class PaymentPageController {
     @Autowired
     private EmailService emailService;
 
+    // ✅ Submit Payment (POST)
     @PostMapping("/submit-payment")
     public String handlePaymentSubmission(@ModelAttribute Payment payment, HttpSession session) {
-        System.out.println("Session email at payment: " + session.getAttribute("email"));
         String userEmail = (String) session.getAttribute("email");
 
+        // ✅ Session Check
         if (userEmail == null) {
-            return "redirect:/login";
+            return "redirect:/"; // Or redirect:/login if that exists
         }
 
         payment.setEmail(userEmail);
@@ -47,20 +48,19 @@ public class PaymentPageController {
         User user = authService.findByEmail(userEmail);
 
         if (user == null) {
-            return "redirect:/login";
+            return "redirect:/";
         }
 
-        // ✅ Save with error checking
+        // ✅ Save with error handling
         try {
             paymentService.savePayment(payment);
             System.out.println("✅ Payment saved to DB successfully.");
         } catch (Exception e) {
             System.out.println("❌ Error saving payment: " + e.getMessage());
-            e.printStackTrace();
             return "redirect:/error";
         }
 
-        // ✅ Prepare invoice
+        // ✅ Send Invoice
         String userName = user.getName();
         String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 
@@ -80,14 +80,18 @@ public class PaymentPageController {
                 + "Stay strong, stay healthy! \n\n"
                 + "Warm regards,\n"
                 + "Team BodyTuning Gym";
+
         emailService.sendInvoiceEmail(userEmail, "🏋️ Your BodyTuning Gym Invoice", invoice);
 
         return "redirect:/paymentsucces";
     }
+
+    // ✅ Show Payment Success Page (GET)
     @GetMapping("/paymentsucces")
-    public String showPaymentSuccessPage() {
-        return "paymentsucces"; // points to paymentsuccess.html
+    public String showPaymentSuccessPage(HttpSession session) {
+        if (session.getAttribute("email") == null) {
+            return "redirect:/"; // block access after logout
+        }
+        return "paymentsucces";
     }
-
-
 }

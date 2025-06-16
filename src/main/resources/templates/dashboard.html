@@ -146,14 +146,14 @@
     <h1>BodyTuning Gym</h1>
     <nav>
         <a th:href="@{/dashboard}">Dashboard</a>
-        <a th:href="@{/index}">Logout</a>
+        <a th:href="@{/logout}">Logout</a>
     </nav>
 </header>
 
 <main>
     <div class="dashboard-container">
         <div class="greeting-box">
-            👋 Welcome back, <span th:text="${name}">User</span>! <br>
+            👋 Welcome <span th:text="${name}">User</span>! <br>
             Let’s take one step closer to your fitness goals today.
         </div>
 

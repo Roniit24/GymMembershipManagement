@@ -60,9 +60,11 @@ public class DashboardController {
 	        }
 	        return "myPlan";
 	    }
-	 @GetMapping("/index")
-	 public String openIndex() {
-		 	return "index";
+	 @GetMapping("/logout")
+	 public String logout(HttpSession session) {
+	     session.invalidate(); // Destroys the entire session
+	     return "redirect:/"; // Redirect to index.html or login page
 	 }
+
 }
 	
